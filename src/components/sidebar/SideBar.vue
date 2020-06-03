@@ -1,15 +1,28 @@
 <template>
   <div>
-  <b-nav vertical class="w-25" style="float:left;">
-    <b-nav-item active>Active</b-nav-item>
-    <b-nav-item>Link</b-nav-item>
-    <b-nav-item>Another Link</b-nav-item>
-    <b-nav-item disabled>Disabled</b-nav-item>
-  </b-nav>
-</div>
+    <b-form-group label="Categorías" class="text-left ml-5">
+      <b-form-checkbox
+        v-for="option in options"
+        v-model="selected"
+        :key="option.value"
+        :value="option.value"
+        name="flavour-3a"
+      >{{ option.text }}</b-form-checkbox>
+    </b-form-group>
+  </div>
 </template>
 <script>
 export default {
-    
-}
+  data() {
+    return {
+      selected: [], // Must be an array reference!
+      options: [
+        { text: "Orange", value: "orange" },
+        { text: "Apple", value: "apple" },
+        { text: "Pineapple", value: "pineapple" },
+        { text: "Grape", value: "grape" }
+      ]
+    };
+  }
+};
 </script>
