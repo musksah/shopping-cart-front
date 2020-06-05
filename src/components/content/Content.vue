@@ -53,7 +53,7 @@ export default {
   },
   methods: {
     getItems(data={}) {
-      this.axios.get("http://localhost:8082/item-list",{params:{'categories':data}}).then(response => {
+      this.axios.get("http://localhost:8080/item-list",{params:{'categories':data}}).then(response => {
         this.rows = response.data.total_items;
         this.pages = response.data.pages_number;
         this.gridLists = response.data.grid_list;

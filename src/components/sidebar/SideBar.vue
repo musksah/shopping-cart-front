@@ -25,7 +25,7 @@ export default {
   },
   methods: {
     getCategories() {
-      this.axios.get("http://localhost:8082/category-list",{params:{"Hola":"Holamundo"}}).then(response => {
+      this.axios.get("http://localhost:8080/category-list",{params:{"Hola":"Holamundo"}}).then(response => {
         console.log(response.data);
         response.data.forEach(element => {
           this.options.push({ text: element.name, value: element.id });
