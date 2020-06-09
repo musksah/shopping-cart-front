@@ -46,13 +46,12 @@ export default {
     this.$root.$on("componentItems", (newValue) => {
       // your code goes here
       console.log("component1");
-      
       console.log(newValue);
       this.getItems(newValue);
     });
   },
   methods: {
-    getItems(data={}) {
+    getItems(data=[]) {
       this.axios.get("http://localhost:8080/item-list",{params:{'categories':data}}).then(response => {
         this.rows = response.data.total_items;
         this.pages = response.data.pages_number;
