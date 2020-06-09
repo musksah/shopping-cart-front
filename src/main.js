@@ -9,12 +9,10 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import { BootstrapVue, IconsPlugin, SidebarPlugin } from 'bootstrap-vue'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
-import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
+import { faUserSecret, faShoppingCart, faPlusSquare, faMinusSquare } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
  
-library.add(faUserSecret)
-library.add(faShoppingCart)
+library.add(faUserSecret,faShoppingCart, faPlusSquare, faMinusSquare)
  
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 // Install BootstrapVue
