@@ -18,33 +18,35 @@
             class="mb-2"
           >
             <b-card-text>{{ card.description }}</b-card-text>
+            <b-card-text style="color:#000EE3;font-weight:600;">${{ card.price }} COP</b-card-text>
             <b-row style="display: flex; align-items: center; justify-content: center;">
-              <b-col>
-                <b-button href="#" variant="primary">
-                  <font-awesome-icon :icon="['fas', 'minus-square']" />
-                </b-button>
+              <b-col style="display:inline;">
+                <label>cantidad</label>
               </b-col>
-              <b-col cols="4">
-                <b-form-input :v-model="cards[`card${card.id}`]" :value="value_defect" :id="`1`" type="number"></b-form-input>
-              </b-col>
-              <b-col>
-                <b-button href="#" variant="primary">
-                  <font-awesome-icon :icon="['fas', 'plus-square']" @click="addValue()" />
-                </b-button>
+              <b-col style="display:inline;">
+                <b-form-input
+                  :v-model="cards[`card${card.id}`]"
+                  :value="value_defect"
+                  :id="`1`"
+                  type="number"
+                ></b-form-input>
               </b-col>
             </b-row>
-            <b-row style="display: flex; align-items: center; justify-content: center;" class="mt-2">
+            <b-row
+              style="display: flex; align-items: center; justify-content: center;"
+              class="mt-2"
+            >
               <b-button href="#" variant="primary" style="text-align:center;">Agregar al carrito</b-button>
             </b-row>
           </b-card>
         </b-card-group>
-        <!-- </div> -->
       </div>
     </div>
     <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" first-number></b-pagination>
   </div>
 </template>
 <script>
+const host = "http://localhost:8080/";
 export default {
   data() {
     return {
@@ -55,9 +57,8 @@ export default {
       gridLists: [],
       foto: "@/assets/img/mouse_logitech.jpg",
       categories: {},
-      value_defect:0,
-      cards:{
-      }
+      value_defect: 0,
+      cards: {}
     };
   },
   mounted() {
@@ -72,7 +73,7 @@ export default {
   methods: {
     getItems(data = []) {
       this.axios
-        .get("http://localhost:8080/item-list", {
+        .get(`${host}item-list`, {
           params: { categories: data }
         })
         .then(response => {
@@ -82,7 +83,7 @@ export default {
           console.log(response.data);
         });
     },
-    addValue(cardnumber){
+    addValue(cardnumber) {
       console.log(this.cards);
       // this.cards[cardnumber] =this.cards.cardnumber+1;
     }
