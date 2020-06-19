@@ -25,10 +25,10 @@
               </b-col>
               <b-col style="display:inline;">
                 <b-form-input
-                  :v-model="cards[`card${card.id}`]"
+                  v-model="quantity_cards[card.id]"
                   :value="value_defect"
-                  :id="`1`"
                   type="number"
+                  min="1"
                 ></b-form-input>
               </b-col>
             </b-row>
@@ -36,7 +36,11 @@
               style="display: flex; align-items: center; justify-content: center;"
               class="mt-2"
             >
-              <b-button href="#" variant="primary" style="text-align:center;">Agregar al carrito</b-button>
+              <b-button
+                href="#"
+                variant="primary"
+                style="text-align:center;"
+                @click="addValue(card)">Agregar al carrito</b-button>
             </b-row>
           </b-card>
         </b-card-group>
@@ -58,7 +62,8 @@ export default {
       foto: "@/assets/img/mouse_logitech.jpg",
       categories: {},
       value_defect: 1,
-      cards: {}
+      cards: {},
+      quantity_cards: [],
     };
   },
   mounted() {
@@ -69,6 +74,7 @@ export default {
       console.log(newValue);
       this.getItems(newValue);
     });
+    this.setValuesCard();
   },
   methods: {
     getItems(data = []) {
@@ -83,8 +89,22 @@ export default {
           console.log(response.data);
         });
     },
-    addValue(cardnumber) {
-      console.log(this.cards);
+    setValuesCard(){
+      console.log("SetValuesCard");
+      console.log(this.currentPage);
+      this.quantity_cards.map(function(x){
+        console.log(x);
+      });
+      console.log("fin");
+    },
+    addValue(card) {
+      console.log("AddValue");
+      let quantity = this.quantity_cards[card.id];
+      card.quantity_item = typeof quantity != "undefined" ? quantity : 1;
+      
+      // console.log(index);
+      // console.log(this.quantity_cards);
+      this.$root.$emit('componentShooping',card);
       // this.cards[cardnumber] =this.cards.cardnumber+1;
     }
   }

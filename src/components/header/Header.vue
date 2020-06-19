@@ -12,24 +12,21 @@
             <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
           </b-nav-form>
         </b-navbar-nav>
-
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
-          <b-nav-item href="#" class="ml-4 mr-4">
-            <font-awesome-icon icon="shopping-cart" v-b-modal.modal-shopping_cart />
+          <b-nav-item href="#" class="ml-4 mr-4" v-b-modal.modal-shopping_cart>
+            <font-awesome-icon icon="shopping-cart" />
             <b-badge variant="light" v-if="products > 0">
               {{ products }}
               <span class="sr-only">unread messages</span>
             </b-badge>
           </b-nav-item>
-
           <!-- <b-nav-item-dropdown text="Lang" right>
             <b-dropdown-item href="#">EN</b-dropdown-item>
             <b-dropdown-item href="#">ES</b-dropdown-item>
             <b-dropdown-item href="#">RU</b-dropdown-item>
             <b-dropdown-item href="#">FA</b-dropdown-item>
           </b-nav-item-dropdown>-->
-
           <!-- <b-nav-item-dropdown right>
             <template v-slot:button-content>
               <em>User</em>
@@ -46,17 +43,22 @@
             borderless="borderless"
             style="font-size:0.899em;"
           >
-            <template v-slot:custom-foot>
+            <template v-slot:custom-foot variant="light">
               <b-tr>
                 <b-td></b-td>
-                <b-td><span class="text-danger">hello</span></b-td>
-                <b-td></b-td>
+                <b-td class="text-right">
+                  <span style="font-weight:600;">Valor Total:</span>
+                </b-td>
+                <b-td class="text-left">
+                  <span style="font-weight:600;">{{ Totalshopping }}</span>
+                </b-td>
                 <b-td></b-td>
               </b-tr>
             </template>
           </b-table>
           <template v-slot:modal-footer>
-            <b-button variant="success" class="float-right">Hacer el pago</b-button>
+            <p v-if="items.length == 0">Agrega un producto</p>
+            <b-button variant="success" class="float-right" v-if="items.length > 0">{{ titlePay }} ${{ Totalshopping }}</b-button>
           </template>
         </b-modal>
       </b-collapse>
@@ -72,17 +74,16 @@ export default {
       products: 0,
       fields: [
         {
-          key: "Producto",
+          key: "product",
           label: "Producto"
         },
         {
-          key: "cantidad",
+          key: "quantity",
           label: "Cantidad"
         },
         {
-          key: "age",
-          label: "total"
-          // Variant applies to the whole column, including the header and footer
+          key: "total_product",
+          label: "Total Producto"
         },
         {
           key: "actions",
@@ -90,36 +91,74 @@ export default {
         }
       ],
       items: [
-        {
-          isActive: true,
-          age: 40,
-          first_name: "Dickerson",
-          last_name: "Macdonald",
-          actions: "+"
-        },
-        {
-          isActive: false,
-          age: 21,
-          first_name: "Larsen",
-          last_name: "Shaw",
-          actions: "+"
-        },
-        {
-          isActive: false,
-          age: 89,
-          first_name: "Geneva",
-          last_name: "Wilson",
-          actions: "+"
-        },
-        {
-          isActive: true,
-          age: 38,
-          first_name: "Jami",
-          last_name: "Carney",
-          actions: "+"
-        }
+        // {
+        //   product: "Macdonald",
+        //   quantity: "Dickerson",
+        //   total_product: 40,
+        //   actions: "+"
+        // },
+        // {
+        //   product: "Shaw",
+        //   quantity: "Larsen",
+        //   total_product: 21,
+        //   actions: "+"
+        // },
+        // {
+        //   product: "Wilson",
+        //   quantity: "Geneva",
+        //   total_product: 89,
+        //   actions: "+"
+        // },
+        // {
+        //   product: "Carney",
+        //   quantity: "Jami",
+        //   total_product: 38,
+        //   actions: "+"
+        // }
       ]
     };
+  },
+  mounted() {
+    this.$root.$on("componentShooping", Newitem => {
+      let item_product = {
+        id: Newitem.id,
+        price: Newitem.price,
+        product: Newitem.name,
+        quantity: Newitem.quantity_item,
+        total_product: Newitem.quantity_item * Newitem.price
+      };
+      // item_product.product = Newitem.name;
+      // console.log("componentShooping");
+      // console.log(Newitem);
+      if (this.findItem(item_product)) {
+      } else {
+        console.log("entra");
+        this.items.push(item_product);
+      }
+    });
+  },
+  computed: {
+    Totalshopping() {
+      return this.items.reduce(function(val, val_act) {
+        return val + val_act.total_product;
+      }, 0);
+    },
+    titlePay(){
+      return this.items.length == 1 ? "Pagar (1) producto" : `Pagar (${this.items.length}) productos`
+    }
+  },
+  methods: {
+    findItem(item) {
+      let exist = false;
+      this.items.forEach(function(val, index, arrsrc) {
+        if (val.id == item.id) {
+          arrsrc[index].quantity += item.quantity;
+          arrsrc[index].total_product = arrsrc[index].quantity * item.price;
+          exist = true;
+        }
+      });
+      return exist;
+    }
   }
 };
 </script>
