@@ -57,7 +57,7 @@ export default {
       gridLists: [],
       foto: "@/assets/img/mouse_logitech.jpg",
       categories: {},
-      value_defect: 0,
+      value_defect: 1,
       cards: {}
     };
   },
