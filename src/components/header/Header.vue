@@ -16,24 +16,11 @@
         <b-navbar-nav class="ml-auto">
           <b-nav-item href="#" class="ml-4 mr-4" v-b-modal.modal-shopping_cart>
             <font-awesome-icon icon="shopping-cart" />
-            <b-badge variant="light" v-if="products > 0">
-              {{ products }}
+            <b-badge variant="light" v-if="items.length > 0">
+              {{ items.length }}
               <span class="sr-only">unread messages</span>
             </b-badge>
           </b-nav-item>
-          <!-- <b-nav-item-dropdown text="Lang" right>
-            <b-dropdown-item href="#">EN</b-dropdown-item>
-            <b-dropdown-item href="#">ES</b-dropdown-item>
-            <b-dropdown-item href="#">RU</b-dropdown-item>
-            <b-dropdown-item href="#">FA</b-dropdown-item>
-          </b-nav-item-dropdown>-->
-          <!-- <b-nav-item-dropdown right>
-            <template v-slot:button-content>
-              <em>User</em>
-            </template>
-            <b-dropdown-item href="#">Profile</b-dropdown-item>
-            <b-dropdown-item href="#">Sign Out</b-dropdown-item>
-          </b-nav-item-dropdown>-->
         </b-navbar-nav>
         <b-modal id="modal-shopping_cart" title="Checkout" size="lg">
           <b-table
@@ -42,6 +29,8 @@
             head-variant="light"
             borderless="borderless"
             style="font-size:0.899em;"
+            small
+            stacked="md"
           >
             <template v-slot:custom-foot variant="light">
               <b-tr>
@@ -55,10 +44,28 @@
                 <b-td></b-td>
               </b-tr>
             </template>
+            <template v-slot:cell(actions)="row">
+            <b-button
+                size="sm"
+                @click="info(row.item, row.index, $event.target)"
+                class="mr-1"
+                variant="danger"
+              ><font-awesome-icon icon="minus-square"/></b-button>
+              <b-button
+                size="sm"
+                @click="info(row.item, row.index, $event.target)"
+                class="mr-1"
+                variant="danger"
+              ><font-awesome-icon icon="plus-square"/></b-button>
+            </template>
           </b-table>
           <template v-slot:modal-footer>
             <p v-if="items.length == 0">Agrega un producto</p>
-            <b-button variant="success" class="float-right" v-if="items.length > 0">{{ titlePay }} ${{ Totalshopping }}</b-button>
+            <b-button
+              variant="success"
+              class="float-right"
+              v-if="items.length > 0"
+            >{{ titlePay }} ${{ Totalshopping }}</b-button>
           </template>
         </b-modal>
       </b-collapse>
@@ -71,7 +78,6 @@ export default {
   components: {},
   data() {
     return {
-      products: 0,
       fields: [
         {
           key: "product",
@@ -87,35 +93,10 @@ export default {
         },
         {
           key: "actions",
-          label: ""
+          label: "Acciones"
         }
       ],
-      items: [
-        // {
-        //   product: "Macdonald",
-        //   quantity: "Dickerson",
-        //   total_product: 40,
-        //   actions: "+"
-        // },
-        // {
-        //   product: "Shaw",
-        //   quantity: "Larsen",
-        //   total_product: 21,
-        //   actions: "+"
-        // },
-        // {
-        //   product: "Wilson",
-        //   quantity: "Geneva",
-        //   total_product: 89,
-        //   actions: "+"
-        // },
-        // {
-        //   product: "Carney",
-        //   quantity: "Jami",
-        //   total_product: 38,
-        //   actions: "+"
-        // }
-      ]
+      items: []
     };
   },
   mounted() {
@@ -128,8 +109,8 @@ export default {
         total_product: Newitem.quantity_item * Newitem.price
       };
       // item_product.product = Newitem.name;
-      // console.log("componentShooping");
-      // console.log(Newitem);
+      console.log("componentShooping");
+      console.log(Newitem);
       if (this.findItem(item_product)) {
       } else {
         console.log("entra");
@@ -143,8 +124,10 @@ export default {
         return val + val_act.total_product;
       }, 0);
     },
-    titlePay(){
-      return this.items.length == 1 ? "Pagar (1) producto" : `Pagar (${this.items.length}) productos`
+    titlePay() {
+      return this.items.length == 1
+        ? "Pagar (1) producto"
+        : `Pagar (${this.items.length}) productos`;
     }
   },
   methods: {
@@ -158,7 +141,8 @@ export default {
         }
       });
       return exist;
-    }
+    },
+    info(ide, ide2, ide3) {}
   }
 };
 </script>

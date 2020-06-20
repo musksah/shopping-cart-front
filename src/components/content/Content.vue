@@ -29,6 +29,7 @@
                   :value="value_defect"
                   type="number"
                   min="1"
+                  max="99"
                 ></b-form-input>
               </b-col>
             </b-row>
@@ -101,7 +102,8 @@ export default {
       console.log("AddValue");
       let quantity = this.quantity_cards[card.id];
       card.quantity_item = typeof quantity != "undefined" ? quantity : 1;
-      
+      card.actions = `<p style='color:red;'>Hola Mundo</p>`;
+
       // console.log(index);
       // console.log(this.quantity_cards);
       this.$root.$emit('componentShooping',card);
