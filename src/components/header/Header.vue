@@ -24,6 +24,7 @@
         </b-navbar-nav>
         <b-modal id="modal-shopping_cart" title="Checkout" size="lg">
           <b-table
+            ref="table_sh"
             :items="items"
             :fields="fields"
             head-variant="light"
@@ -45,18 +46,22 @@
               </b-tr>
             </template>
             <template v-slot:cell(actions)="row">
-            <b-button
-                size="sm"
-                @click="info(row.item, row.index, $event.target)"
-                class="mr-1"
-                variant="danger"
-              ><font-awesome-icon icon="minus-square"/></b-button>
               <b-button
                 size="sm"
-                @click="info(row.item, row.index, $event.target)"
+                @click="decrease(row, $event.target)"
                 class="mr-1"
                 variant="danger"
-              ><font-awesome-icon icon="plus-square"/></b-button>
+              >
+                <font-awesome-icon icon="minus-square" />
+              </b-button>
+              <b-button
+                size="sm"
+                @click="increase(row, $event.target)"
+                class="mr-1"
+                variant="danger"
+              >
+                <font-awesome-icon icon="plus-square" />
+              </b-button>
             </template>
           </b-table>
           <template v-slot:modal-footer>
@@ -109,8 +114,8 @@ export default {
         total_product: Newitem.quantity_item * Newitem.price
       };
       // item_product.product = Newitem.name;
-      console.log("componentShooping");
-      console.log(Newitem);
+      // console.log("componentShooping");
+      // console.log(Newitem);
       if (this.findItem(item_product)) {
       } else {
         console.log("entra");
@@ -142,7 +147,23 @@ export default {
       });
       return exist;
     },
-    info(ide, ide2, ide3) {}
+    increase(row, $target) {
+      let new_quantity = (row.item.quantity += 1);
+      let new_total_p = new_quantity * row.item.price;
+      this.$set(this.items[row.index], "quantity", new_quantity);
+      // debugger
+      this.$set(this.items[row.index], "total_product", new_total_p);
+    },
+    decrease(row, $target) {
+      if (row.item.quantity == 1) {
+        this.$delete(this.items, row.index);
+      } else {
+        let new_quantity = (row.item.quantity -= 1);
+        let new_total_p = new_quantity * row.item.price;
+        this.$set(this.items[row.index], "quantity", new_quantity);
+        this.$set(this.items[row.index], "total_product", new_total_p);
+      }
+    }
   }
 };
 </script>
