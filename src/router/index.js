@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
 import CartLayout from '@/layouts/CartLayout'
+import ReviewPay from '@/layouts/ReviewPay'
 
 Vue.use(Router)
 
@@ -16,6 +16,11 @@ export default new Router({
       path: '/',
       name: 'cartLayout',
       component: CartLayout,
+    },
+    {
+      path: '/pay-review',
+      name: 'pay-review',
+      component: ReviewPay,
     },
   ]
 })

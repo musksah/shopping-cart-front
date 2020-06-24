@@ -15,6 +15,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 library.add(faUserSecret,faShoppingCart, faPlusSquare, faMinusSquare)
  
 Vue.component('font-awesome-icon', FontAwesomeIcon)
+
 // Install BootstrapVue
 Vue.use(VueAxios, axios)
 Vue.use(BootstrapVue)
