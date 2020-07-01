@@ -11,7 +11,10 @@
             <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
             <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
           </b-nav-form>
-        </b-navbar-nav> -->
+        </b-navbar-nav>-->
+        <b-navbar-nav>
+          <b-nav-item to="/">Productos</b-nav-item>
+        </b-navbar-nav>
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
           <b-nav-item href="#" class="ml-4 mr-4" v-b-modal.modal-shopping_cart>
@@ -70,6 +73,7 @@
               variant="success"
               class="float-right"
               v-if="items.length > 0"
+              @click="goPay"
             >{{ titlePay }} ${{ Totalshopping }}</b-button>
           </template>
         </b-modal>
@@ -163,6 +167,10 @@ export default {
         this.$set(this.items[row.index], "quantity", new_quantity);
         this.$set(this.items[row.index], "total_product", new_total_p);
       }
+    },
+    goPay(){
+      this.$bvModal.hide('modal-shopping_cart')
+      this.$router.push('pay-review')
     }
   }
 };
