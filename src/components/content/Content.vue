@@ -71,8 +71,6 @@ export default {
     this.getItems();
     this.$root.$on("componentItems", newValue => {
       // your code goes here
-      console.log("component1");
-      console.log(newValue);
       this.getItems(newValue);
     });
     this.setValuesCard();
@@ -87,27 +85,16 @@ export default {
           this.rows = response.data.total_items;
           this.pages = response.data.pages_number;
           this.gridLists = response.data.grid_list;
-          console.log(response.data);
         });
     },
     setValuesCard(){
-      console.log("SetValuesCard");
-      console.log(this.currentPage);
       this.quantity_cards.map(function(x){
-        console.log(x);
       });
-      console.log("fin");
     },
     addValue(card) {
-      console.log("AddValue");
       let quantity = this.quantity_cards[card.id];
       card.quantity_item = typeof quantity != "undefined" ? quantity : 1;
-      card.actions = `<p style='color:red;'>Hola Mundo</p>`;
-
-      // console.log(index);
-      // console.log(this.quantity_cards);
       this.$root.$emit('componentShooping',card);
-      // this.cards[cardnumber] =this.cards.cardnumber+1;
     }
   }
 };

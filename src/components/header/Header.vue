@@ -115,14 +115,13 @@ export default {
         price: Newitem.price,
         product: Newitem.name,
         quantity: Newitem.quantity_item,
+        description: Newitem.description,
         total_product: Newitem.quantity_item * Newitem.price
       };
-      // item_product.product = Newitem.name;
       // console.log("componentShooping");
       // console.log(Newitem);
       if (this.findItem(item_product)) {
       } else {
-        console.log("entra");
         this.items.push(item_product);
       }
     });
@@ -169,8 +168,10 @@ export default {
       }
     },
     goPay(){
+      console.log("Entra ")
+      // this.$root.$emit('reviewShooping',this.items);
       this.$bvModal.hide('modal-shopping_cart')
-      this.$router.push('pay-review')
+      this.$router.push({name:'pay-review',params:{items:this.items}})
     }
   }
 };

@@ -26,7 +26,6 @@ export default {
   methods: {
     getCategories() {
       this.axios.get("http://localhost:8080/category-list",{params:{"Hola":"Holamundo"}}).then(response => {
-        console.log(response.data);
         response.data.forEach(element => {
           this.options.push({ text: element.name, value: element.id });
         });
@@ -35,8 +34,6 @@ export default {
   },
   watch: {
     selected:function(newValue){
-      // console.log("El valor ahora es: ");
-      // console.log(newValue);
       this.$root.$emit('componentItems',newValue); 
     }
   },
