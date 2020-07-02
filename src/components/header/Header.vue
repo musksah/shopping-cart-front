@@ -167,11 +167,18 @@ export default {
         this.$set(this.items[row.index], "total_product", new_total_p);
       }
     },
-    goPay(){
-      console.log("Entra ")
-      // this.$root.$emit('reviewShooping',this.items);
-      this.$bvModal.hide('modal-shopping_cart')
-      this.$router.push({name:'pay-review',params:{items:this.items}})
+    goPay() {
+      console.log("Entra ");
+      //this.$root.$emit('reviewShooping',this.items);
+      this.$bvModal.hide("modal-shopping_cart");
+      this.$router.push({
+        name: "pay-review",
+        params: {
+          items: this.items,
+          total_products: this.items.length,
+          total_value: this.Totalshopping
+        }
+      });
     }
   }
 };

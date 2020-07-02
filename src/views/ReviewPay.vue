@@ -12,6 +12,7 @@
             <div class="text-left ml-2">
               <p>{{ item.product }}</p>
               <p>{{ item.description }}</p>
+              <p>Cantidad: {{ item.quantity }}</p>
             </div>
           </div>
           <div class="value_info item">
@@ -25,50 +26,49 @@
       <b-col cols="6" class="box_cart_review">
         <h5 class="mt-1">Método de Pago</h5>
         <hr />
+        <b-form-group label class="mt-5 mb-5">
+          <b-form-radio v-model="selected_pay" name="radio-pay" value="A">
+            <font-awesome-icon icon="money-check-alt" /> Efectivo
+          </b-form-radio>
+        </b-form-group>
       </b-col>
     </b-row>
     <b-row>
-      <b-col class="mt-4">
-        <button class="btn btn-primary text-center">Hacer el Pago</button>
+      <b-col class="mt-4" style="margin-bottom:5rem;">
+        <button class="btn btn-primary text-center" @click="registerSale">Hacer el Pago</button>
       </b-col>
     </b-row>
   </div>
 </template>
 <script>
+const host = "http://127.0.0.1:8080/";
 import ShoppingCartLayout from "@/layouts/ShoppingCartLayout";
 import CartBSideBar from "@/components/sidebar/SideBar";
 export default {
   name: `ListItems`,
   data() {
     return {
-      items:[
+      items: [
         // {product:"Mouse",description:"Mouse gamer",price:80000,url_img:require('@/assets/mouse_logitech.jpg')},
         // {product:"Mouse",description:"Mouse gamer",price:80000,url_img:require('@/assets/mouse_logitech.jpg')},
-      ]
+      ],
+      total_value: 0,
+      total_products: 0,
+      selected_pay: ""
     };
   },
   mounted() {
-    console.log("Params")
-    console.log(this.$router.params.items)
+    console.log("Params");
+    console.log(this.$route.params);
+    if (typeof this.$route.params.items != "undefined") {
+      this.items = this.$route.params.items;
+      this.total_value = this.$route.params.total_value;
+      this.total_products = this.$route.params.total_products;
+    }
     this.$root.$on("reviewShooping", itemsL => {
-      // let item_product = {
-      //   id: Newitem.id,
-      //   price: Newitem.price,
-      //   product: Newitem.name,
-      //   quantity: Newitem.quantity_item,
-      //   total_product: Newitem.quantity_item * Newitem.price
-      // };
-      // item_product.product = Newitem.name;
-      this.items = itemsL
+      this.items = itemsL;
       console.log("items");
-      console.log(this.items);
-      console.log("reviewShooping");
       console.log(itemsL);
-      // if (this.findItem(item_product)) {
-      // } else {
-      //   console.log("entra");
-      //   this.items.push(item_product);
-      // }
     });
   },
   created() {
@@ -76,6 +76,45 @@ export default {
   },
   components: {
     CartBSideBar
+  },
+  methods: {
+    registerSale() {
+      this.axios
+        .post(`${host}/register-sale`, this.axiosRegister)
+        .then(response => {
+          console.log(response);
+        });
+    },
+    getFormData(formData, data, previousKey) {
+      if (data instanceof Object) {
+        Object.keys(data).forEach(key => {
+          const value = data[key];
+          if (value instanceof Object && !Array.isArray(value)) {
+            return this.getFormData(formData, value, key);
+          }
+          if (previousKey) {
+            key = `${previousKey}[${key}]`;
+          }
+          if (Array.isArray(value)) {
+            value.forEach(val => {
+              formData.append(`${key}[]`, val);
+            });
+          } else {
+            formData.append(key, value);
+          }
+        });
+      }
+    }
+  },
+  computed: {
+    axiosRegister() {
+      const params = new FormData();
+      var json_arr_items = JSON.stringify(this.items);
+      params.append("items", json_arr_items);
+      params.append("total_value", this.total_value);
+      params.append("total_products", this.total_products);
+      return params;
+    }
   }
 };
 </script>
@@ -91,6 +130,7 @@ export default {
   padding: 16px;
   border-left: 1px solid #b1b1b1;
   background: #e9e9e9;
+  max-height: 190px;
 }
 
 .itemreview {
