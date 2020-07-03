@@ -41,7 +41,7 @@
   </div>
 </template>
 <script>
-const host = "http://127.0.0.1:8080/";
+const host = "http://127.0.0.1:8080";
 import ShoppingCartLayout from "@/layouts/ShoppingCartLayout";
 import CartBSideBar from "@/components/sidebar/SideBar";
 export default {
@@ -85,26 +85,6 @@ export default {
           console.log(response);
         });
     },
-    getFormData(formData, data, previousKey) {
-      if (data instanceof Object) {
-        Object.keys(data).forEach(key => {
-          const value = data[key];
-          if (value instanceof Object && !Array.isArray(value)) {
-            return this.getFormData(formData, value, key);
-          }
-          if (previousKey) {
-            key = `${previousKey}[${key}]`;
-          }
-          if (Array.isArray(value)) {
-            value.forEach(val => {
-              formData.append(`${key}[]`, val);
-            });
-          } else {
-            formData.append(key, value);
-          }
-        });
-      }
-    }
   },
   computed: {
     axiosRegister() {
@@ -124,7 +104,7 @@ export default {
   /*border-top: 1px solid #838383;
   /*border-left: 1px solid #838383;
   /*border-bottom: 1px solid #838383;
-  /* border-radius: 5px 0 0 5px; */
+  /*border-radius: 5px 0 0 5px; */
 }
 .box_cart_review {
   padding: 16px;
