@@ -18,7 +18,7 @@
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
           <b-nav-item href="#" class="ml-4 mr-4" v-b-modal.modal-shopping_cart>
-            <font-awesome-icon icon="shopping-cart" />
+            <font-awesome-icon icon="shopping-cart" class="mr-1"/> 
             <b-badge variant="light" v-if="items.length > 0">
               {{ items.length }}
               <span class="sr-only">unread messages</span>
@@ -51,7 +51,7 @@
             <template v-slot:cell(actions)="row">
               <b-button
                 size="sm"
-                @click="decrease(row, $event.target)"
+                @click="decrease(row)"
                 class="mr-1"
                 variant="danger"
               >
@@ -59,7 +59,7 @@
               </b-button>
               <b-button
                 size="sm"
-                @click="increase(row, $event.target)"
+                @click="increase(row)"
                 class="mr-1"
                 variant="danger"
               >
@@ -120,8 +120,7 @@ export default {
       };
       // console.log("componentShooping");
       // console.log(Newitem);
-      if (this.findItem(item_product)) {
-      } else {
+      if (!this.findItem(item_product)) {
         this.items.push(item_product);
       }
     });
@@ -150,14 +149,14 @@ export default {
       });
       return exist;
     },
-    increase(row, $target) {
+    increase(row) {
       let new_quantity = (row.item.quantity += 1);
       let new_total_p = new_quantity * row.item.price;
       this.$set(this.items[row.index], "quantity", new_quantity);
       // debugger
       this.$set(this.items[row.index], "total_product", new_total_p);
     },
-    decrease(row, $target) {
+    decrease(row) {
       if (row.item.quantity == 1) {
         this.$delete(this.items, row.index);
       } else {

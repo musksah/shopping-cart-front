@@ -73,7 +73,6 @@ export default {
       // your code goes here
       this.getItems(newValue);
     });
-    this.setValuesCard();
   },
   methods: {
     getItems(data = []) {
@@ -86,10 +85,6 @@ export default {
           this.pages = response.data.pages_number;
           this.gridLists = response.data.grid_list;
         });
-    },
-    setValuesCard(){
-      this.quantity_cards.map(function(x){
-      });
     },
     addValue(card) {
       let quantity = this.quantity_cards[card.id];

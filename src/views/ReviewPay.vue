@@ -43,7 +43,6 @@
 <script>
 const host = "http://127.0.0.1:8080";
 import ShoppingCartLayout from "@/layouts/ShoppingCartLayout";
-import CartBSideBar from "@/components/sidebar/SideBar";
 export default {
   name: `ListItems`,
   data() {
@@ -75,7 +74,6 @@ export default {
     this.$emit(`update:layout`, ShoppingCartLayout);
   },
   components: {
-    CartBSideBar
   },
   methods: {
     registerSale() {
