@@ -10,7 +10,7 @@
             v-for="card in gridlist"
             :key="card.id"
             :title="card.name"
-            :img-src="require('@/assets/mouse_logitech.jpg')"
+            img-src="/img/hogar1.jpg"
             img-alt="Image"
             img-top
             tag="article"
@@ -41,7 +41,8 @@
                 href="#"
                 variant="primary"
                 style="text-align:center;"
-                @click="addValue(card)">Agregar al carrito</b-button>
+                @click="addValue(card)"
+              >Agregar al carrito</b-button>
             </b-row>
           </b-card>
         </b-card-group>
@@ -51,7 +52,8 @@
   </div>
 </template>
 <script>
-const host = "https://shopping-cartb.herokuapp.com/public/";
+const host = "http://127.0.0.1:8080/";
+// const host = "https://shopping-cartb.herokuapp.com/public/"
 export default {
   data() {
     return {
@@ -64,7 +66,7 @@ export default {
       categories: {},
       value_defect: 1,
       cards: {},
-      quantity_cards: [],
+      quantity_cards: []
     };
   },
   mounted() {
@@ -81,15 +83,34 @@ export default {
           params: { categories: data }
         })
         .then(response => {
+          console.log(response);
           this.rows = response.data.total_items;
           this.pages = response.data.pages_number;
+          // this.addUrl(response.data.grid_list);
           this.gridLists = response.data.grid_list;
         });
     },
     addValue(card) {
       let quantity = this.quantity_cards[card.id];
       card.quantity_item = typeof quantity != "undefined" ? quantity : 1;
-      this.$root.$emit('componentShooping',card);
+      this.$root.$emit("componentShooping", card);
+    }
+    // addUrl(gridList){
+    //   gridList.forEach((elePaginate,indexPag,sourceArr)=>{
+    //     elePaginate.forEach((eleDeck,indexDeck)=>{
+    //       eleDeck.forEach((card,indexCard)=>{
+    //         let url_item = sourceArr[indexPag][indexDeck][indexCard].url;
+    //         // sourceArr[indexPag][indexDeck][indexCard].url = require(url_item);
+    //         console.log(url_item)
+    //       });
+    //     });
+    //   });
+    // }
+  },
+  computed: {
+    getImgUrl(pet) {
+      return require(pet);
+      // return images('./' + pet + ".jpg")
     }
   }
 };

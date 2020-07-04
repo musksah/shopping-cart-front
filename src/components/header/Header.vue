@@ -124,6 +124,9 @@ export default {
         this.items.push(item_product);
       }
     });
+    this.$root.$on("resetItems",()=>{
+      this.items = [];
+    });
   },
   computed: {
     Totalshopping() {

@@ -41,7 +41,8 @@
   </div>
 </template>
 <script>
-const host = "http://127.0.0.1:8080";
+const host = "http://127.0.0.1:8080/";
+// const host = "https://shopping-cartb.herokuapp.com/public/";
 import ShoppingCartLayout from "@/layouts/ShoppingCartLayout";
 export default {
   name: `ListItems`,
@@ -81,6 +82,9 @@ export default {
         .post(`${host}/register-sale`, this.axiosRegister)
         .then(response => {
           console.log(response);
+          this.$root.$emit('resetItems');
+          this.$swal('Compra registrada!');
+          this.$router.push("/");
         });
     },
   },
