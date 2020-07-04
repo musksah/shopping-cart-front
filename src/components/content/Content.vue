@@ -51,7 +51,7 @@
   </div>
 </template>
 <script>
-const host = "http://localhost:8080/";
+const host = "https://shopping-cartb.herokuapp.com/public/";
 export default {
   data() {
     return {

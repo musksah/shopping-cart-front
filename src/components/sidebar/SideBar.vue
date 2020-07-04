@@ -12,6 +12,7 @@
   </div>
 </template>
 <script>
+const host = "https://shopping-cartb.herokuapp.com/public/"
 export default {
   data() {
     return {
@@ -25,7 +26,7 @@ export default {
   },
   methods: {
     getCategories() {
-      this.axios.get("http://localhost:8080/category-list",{params:{"Hola":"Holamundo"}}).then(response => {
+      this.axios.get(`${host}category-list`,{params:{"Hola":"Holamundo"}}).then(response => {
         response.data.forEach(element => {
           this.options.push({ text: element.name, value: element.id });
         });
