@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import ReviewPay from '@/views/ReviewPay'
-import ListItems from '@/views/ListItems'
+import ReviewPay from '../views/ReviewPay'
+import ListItems from '../views/ListItems'
 
 Vue.use(Router)
 
@@ -21,11 +21,6 @@ export default new Router({
       path: '/pay-review',
       name: 'pay-review',
       component: ReviewPay,
-    },
-    {
-      path: '*',
-      name: 'catchAll',
-      component: ListItems
     },
   ],
 })

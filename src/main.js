@@ -1,4 +1,5 @@
 // The Vue build version to load with the `import` command
+// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
@@ -21,7 +22,7 @@ Vue.use(BootstrapVue)
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin)
 Vue.use(SidebarPlugin)
-// Vue.config.productionTip = false
+Vue.config.productionTip = false
 
 new Vue({
   router,

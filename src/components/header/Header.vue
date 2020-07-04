@@ -18,7 +18,7 @@
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
           <b-nav-item href="#" class="ml-4 mr-4" v-b-modal.modal-shopping_cart>
-            <font-awesome-icon icon="shopping-cart" class="mr-1"/> 
+            <font-awesome-icon icon="shopping-cart" class="mr-1" />
             <b-badge variant="light" v-if="items.length > 0">
               {{ items.length }}
               <span class="sr-only">unread messages</span>
