@@ -22,6 +22,10 @@ export default new Router({
       name: 'pay-review',
       component: ReviewPay,
     },
+    {
+      path: '*',
+      name: 'catchAll',
+      component: ListItems
+    },
   ],
-  mode: `history`,
 })
