@@ -1,38 +1,77 @@
 <template>
   <div>
-    <b-row class="ml-3 mr-3">
-      <b-col class="box_pay_method">
-        <h5 class="mt-1">Resumen Productos</h5>
-        <hr />
-        <div class="itemreview mb-2" v-for="item in items" :key="item.id">
-          <div class="photo item">
-            <img :src="`/img/${item.url}`" width="100%" alt />
-          </div>
-          <div class="item_info item">
-            <div class="text-left ml-2">
-              <p>{{ item.product }}</p>
-              <p>{{ item.description }}</p>
-              <p>Cantidad: {{ item.quantity }}</p>
+    <div class="d-none d-xl-block">
+      <b-row class="ml-3 mr-3">
+        <b-col class="box_pay_method">
+          <h5 class="mt-1">Resumen Productos</h5>
+          <hr />
+          <div class="itemreview mb-2" v-for="item in items" :key="item.id">
+            <div class="photo item">
+              <img :src="`/img/${item.url}`" width="100%" alt />
+            </div>
+            <div class="item_info item">
+              <div class="text-left ml-2">
+                <p>{{ item.product }}</p>
+                <p>{{ item.description }}</p>
+                <p>Cantidad: {{ item.quantity }}</p>
+              </div>
+            </div>
+            <div class="value_info item">
+              <div class="text-left ml-2">
+                <p style="font-weight:bold;">Precio</p>
+                <p>${{ item.price }}</p>
+              </div>
             </div>
           </div>
-          <div class="value_info item">
-            <div class="text-left ml-2">
-              <p style="font-weight:bold;">Precio</p>
-              <p>${{ item.price }}</p>
+        </b-col>
+        <b-col cols="6" class="box_cart_review">
+          <h5 class="mt-1">Método de Pago</h5>
+          <hr />
+          <b-form-group label class="mt-5 mb-5">
+            <b-form-radio v-model="selected_pay" name="radio-pay" value="A">
+              <font-awesome-icon icon="money-check-alt" class="mr-1" />Efectivo
+            </b-form-radio>
+          </b-form-group>
+        </b-col>
+      </b-row>
+    </div>
+    <div class="d-xl-none">
+      <b-row>
+        <b-col class="box_pay_method">
+          <h5 class="mt-1">Resumen Productos</h5>
+          <hr />
+          <div class="itemreview mb-2" v-for="item in items" :key="item.id">
+            <div class="photo item">
+              <img :src="`/img/${item.url}`" width="100%" alt />
+            </div>
+            <div class="item_info item">
+              <div class="text-left ml-2">
+                <p class="p_mobile">{{ item.product }}</p>
+                <p class="p_mobile">{{ item.description }}</p>
+                <p class="p_mobile">Cantidad: {{ item.quantity }}</p>
+              </div>
+            </div>
+            <div class="value_info item">
+              <div class="text-left ml-2">
+                <p style="font-weight:bold;" class="p_mobile">Precio</p>
+                <p class="p_mobile">${{ item.price }}</p>
+              </div>
             </div>
           </div>
-        </div>
-      </b-col>
-      <b-col cols="6" class="box_cart_review">
-        <h5 class="mt-1">Método de Pago</h5>
-        <hr />
-        <b-form-group label class="mt-5 mb-5">
-          <b-form-radio v-model="selected_pay" name="radio-pay" value="A">
-            <font-awesome-icon icon="money-check-alt" class="mr-1" />Efectivo
-          </b-form-radio>
-        </b-form-group>
-      </b-col>
-    </b-row>
+        </b-col>
+      </b-row>
+      <b-row class="ml-1 mr-1">
+        <b-col class="box_cart_review">
+          <h6 class="mt-1">Método de Pago</h6>
+          <hr />
+          <b-form-group label class="mt-5 mb-5">
+            <b-form-radio v-model="selected_pay" name="radio-pay" value="A">
+              <font-awesome-icon icon="money-check-alt" class="mr-1 p_mobile" />Efectivo
+            </b-form-radio>
+          </b-form-group>
+        </b-col>
+      </b-row>
+    </div>
     <b-row>
       <b-col class="mt-4" style="margin-bottom:5rem;">
         <button class="btn btn-primary text-center" @click="registerSale">Hacer el Pago</button>
@@ -86,8 +125,12 @@ export default {
             this.$swal("Compra registrada!");
             this.$router.push("/");
           });
-      }else{
-        this.$swal('Selección Inválida!','Debes seleccionar un método de pago','warning');
+      } else {
+        this.$swal(
+          "Selección Inválida!",
+          "Debes seleccionar un método de pago",
+          "warning"
+        );
       }
     }
   },
@@ -157,5 +200,9 @@ export default {
   display: flex;
   justify-content: flex-start;
   align-items: center;
+}
+
+.p_mobile{
+  font-size:0.8rem !important;
 }
 </style>

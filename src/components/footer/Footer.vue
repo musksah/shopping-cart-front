@@ -1,6 +1,7 @@
 <template>
 <div class="footer">
-  <h5>Copyright Sebastián Huérfano 2020</h5>
+  <h5 class="d-none d-xl-block">Copyright Sebastián Huérfano © 2020</h5>
+  <h6 class="d-xl-none">Copyright Sebastián Huérfano © 2020</h6>
 </div>
 </template>
 <style lang="css">
