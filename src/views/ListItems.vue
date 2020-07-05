@@ -1,12 +1,28 @@
 <template>
-  <b-row>
-    <b-col style="border-right:solid 1px #B9B9B9">
-      <CartBSideBar class="d-none d-sm-block"></CartBSideBar>
-    </b-col>
-    <b-col cols="9">
-      <CartBContent></CartBContent>
-    </b-col>
-  </b-row>
+  <div>
+    <div class="d-none d-xl-block">
+      <b-row>
+        <b-col style="border-right:solid 1px #B9B9B9">
+          <CartBSideBar></CartBSideBar>
+        </b-col>
+        <b-col cols="9">
+          <CartBContent></CartBContent>
+        </b-col>
+      </b-row>
+    </div>
+    <div class="d-xl-none">
+      <b-row>
+        <b-col style="border-right:solid 1px #B9B9B9">
+          <CartBSideBar></CartBSideBar>
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col>
+          <CartBContent></CartBContent>
+        </b-col>
+      </b-row>
+    </div>
+  </div>
 </template>
 <script>
 import ShoppingCartLayout from "@/layouts/ShoppingCartLayout";
@@ -17,7 +33,7 @@ export default {
   created() {
     this.$emit(`update:layout`, ShoppingCartLayout);
   },
-  components:{
+  components: {
     CartBSideBar,
     CartBContent
   }
