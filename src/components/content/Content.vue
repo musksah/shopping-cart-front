@@ -10,7 +10,7 @@
             v-for="card in gridlist"
             :key="card.id"
             :title="card.name"
-            img-src="/img/hogar1.jpg"
+            :img-src="getImgUrl(card.url)"
             img-alt="Image"
             img-top
             tag="article"
@@ -94,6 +94,14 @@ export default {
       let quantity = this.quantity_cards[card.id];
       card.quantity_item = typeof quantity != "undefined" ? quantity : 1;
       this.$root.$emit("componentShooping", card);
+    },
+    getImgUrl(url) {
+      // if (id % 2 == 0) {
+      //   return "/img/hogar1.jpg";
+      // } else {
+      //   return "/img/hogar2.jpg";
+      // }
+      return `/img/${url}`;
     }
     // addUrl(gridList){
     //   gridList.forEach((elePaginate,indexPag,sourceArr)=>{
@@ -108,10 +116,13 @@ export default {
     // }
   },
   computed: {
-    getImgUrl(pet) {
-      return require(pet);
-      // return images('./' + pet + ".jpg")
-    }
+    // getImgUrl(id) {
+    //   if (id % 2 == 0) {
+    //     return "/img/hogar1.jpg";
+    //   } else {
+    //     return "/img/hogar2.jpg";
+    //   }
+    // }
   }
 };
 </script>

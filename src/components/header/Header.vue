@@ -115,6 +115,7 @@ export default {
         price: Newitem.price,
         product: Newitem.name,
         quantity: Newitem.quantity_item,
+        url: Newitem.url,
         description: Newitem.description,
         total_product: Newitem.quantity_item * Newitem.price
       };

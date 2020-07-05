@@ -6,7 +6,7 @@
         <hr />
         <div class="itemreview mb-2" v-for="item in items" :key="item.id">
           <div class="photo item">
-            <img :src="require('@/assets/mouse_logitech.jpg')" width="100%" alt />
+            <img :src="`/img/${item.url}`" width="100%" alt />
           </div>
           <div class="item_info item">
             <div class="text-left ml-2">
@@ -28,7 +28,7 @@
         <hr />
         <b-form-group label class="mt-5 mb-5">
           <b-form-radio v-model="selected_pay" name="radio-pay" value="A">
-            <font-awesome-icon icon="money-check-alt" /> Efectivo
+            <font-awesome-icon icon="money-check-alt" class="mr-1" />Efectivo
           </b-form-radio>
         </b-form-group>
       </b-col>
@@ -74,19 +74,22 @@ export default {
   created() {
     this.$emit(`update:layout`, ShoppingCartLayout);
   },
-  components: {
-  },
+  components: {},
   methods: {
     registerSale() {
-      this.axios
-        .post(`${host}/register-sale`, this.axiosRegister)
-        .then(response => {
-          console.log(response);
-          this.$root.$emit('resetItems');
-          this.$swal('Compra registrada!');
-          this.$router.push("/");
-        });
-    },
+      if (this.selected_pay != "") {
+        this.axios
+          .post(`${host}/register-sale`, this.axiosRegister)
+          .then(response => {
+            console.log(response);
+            this.$root.$emit("resetItems");
+            this.$swal("Compra registrada!");
+            this.$router.push("/");
+          });
+      }else{
+        this.$swal('Selección Inválida!','Debes seleccionar un método de pago','warning');
+      }
+    }
   },
   computed: {
     axiosRegister() {
