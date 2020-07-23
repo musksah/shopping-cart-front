@@ -1,6 +1,6 @@
 # shopping-cart-front
 
-Carrito de compras hecho con vuejs con filtro de productos, paginación y registro de compras. EL repositorio del backend es: https://github.com/musksah/shopping-cart.
+Carrito de compras hecho con vuejs con filtro de productos, paginación y registro de compras. El repositorio del backend es: https://github.com/musksah/shopping-cart.
 
 ## Project Deployed
 
